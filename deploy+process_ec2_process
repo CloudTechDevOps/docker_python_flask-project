@@ -1,0 +1,11 @@
+""deploy process on ec2""
+yum install python3-pip
+pip install -r requirements.txt
+run python3 app.py
+
+Note:
+nohup stands for "no hang up". It allows you to run a command that keeps running even after you log out or close your terminal session.
+
+Start your Flask application with nohup:
+
+nohup python3 app.py &
