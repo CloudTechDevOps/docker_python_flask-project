@@ -8,4 +8,16 @@ nohup stands for "no hang up". It allows you to run a command that keeps running
 
 Start your Flask application with nohup:
 
-nohup python3 app.py &
+## To run continuously  background without stop
+
+nohup python3 app.py > flask.log 2>&1 &
+
+
+### How It Works
+nohup prevents the process from stopping when you log out.
+& runs it in the background.
+> flask.log 2>&1 redirects output (stdout & stderr) to flask.log.
+
+
+
+
