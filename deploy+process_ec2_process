@@ -13,6 +13,12 @@ Start your Flask application with nohup:
 nohup python3 app.py > flask.log 2>&1 &
 
 
+ps aux | grep app.py   # to check running or not python background
+
+
+pkill -f app.py    # to kill process 
+
+
 ### How It Works
 nohup prevents the process from stopping when you log out.
 & runs it in the background.
