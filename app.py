@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello():
-    return "Flask sample application test!!"
+    return "Flask sample application on azure app service"
 
 
 if __name__ == "__main__":
