@@ -43,3 +43,46 @@ Without it, you lose the real client IP if there’s another proxy before Nginx.
 Required? Recommended if your app needs to know whether the request was HTTP or HTTPS.
 
 Useful for generating proper redirects or absolute URLs in Flask.
+
+
+=========================== nginx load balncer ========
+
+upstream flask_app {
+    # Round-robin load balancing (default)
+    server 10.0.1.101:5000;
+    server 10.0.1.102:5000;
+}
+
+server {
+    listen 80;
+    server_name yourdomain.com;  # or public IP
+
+    location / {
+        proxy_pass http://flask_app;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    location /static/ {
+        # Optional: serve static files from one backend
+        proxy_pass http://flask_app/static/;
+    }
+}
+
+#upstream flask_app defines your backends.
+
+#Default method is round-robin, so requests alternate: backend1 → backend2 → backend1 …
+
+#proxy_set_header ensures your Flask app sees the real client IP and original host.
+
+
+#Optional: Advanced Round-Robin Settings
+
+You can add:
+
+#upstream flask_app {
+    server 10.0.1.101:5000 weight=2;  # 2x traffic goes here
+    server 10.0.1.102:5000;
+}
