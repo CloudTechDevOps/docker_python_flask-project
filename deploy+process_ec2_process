@@ -19,6 +19,13 @@ nohup python3 app.py > flask.log 2>&1 &
 
 #Save logs (> flask.log 2>&1).
 
+#Every process has 3 "streams":
+
+
+#1 = stdout → standard output (normal messages, e.g., print())
+
+#2 = stderr → standard error (error messages, exceptions, tracebacks)
+
 
 ps aux | grep app.py   # to check running or not python background
 
