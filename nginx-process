@@ -86,3 +86,44 @@ You can add:
     server 10.0.1.101:5000 weight=2;  # 2x traffic goes here
     server 10.0.1.102:5000;
 }
+
+=============================== Path based Example  ============================
+
+# Upstream for app1
+upstream app1_backend {
+    server 10.0.1.101:5000;
+}
+
+# Upstream for app2
+upstream app2_backend {
+    server 10.0.1.102:5000;
+}
+
+server {
+    listen 80;
+    server_name yourdomain.com;  # or public IP
+
+    # Route /app1
+    location /app1/ {
+        proxy_pass http://app1_backend;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    # Route /app2
+    location /app2/ {
+        proxy_pass http://app2_backend;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    # Optional: serve static files
+    location /static/ {
+        proxy_pass http://app1_backend/static/;
+    }
+}
+
