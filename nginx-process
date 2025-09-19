@@ -11,3 +11,35 @@ server {
     }
 }
 
+
+
+
+==============================================================
+
+1️.  Host Header (proxy_set_header Host $host;)
+
+Required? Usually yes
+
+Reason: Ensures Flask knows which domain the client requested.
+
+Without it, Flask may generate URLs incorrectly or use 127.0.0.1:5000 as the host.
+
+2️. X-Real-IP (proxy_set_header X-Real-IP $remote_addr;)
+
+Required? Yes if you want accurate client IPs in logs or for IP-based logic.
+
+Without it, Flask sees all requests as coming from 127.0.0.1 (Nginx).
+
+3️.  X-Forwarded-For (proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;)
+
+Required? Recommended for apps behind multiple proxies or load balancers.
+
+Keeps a chain of client IPs.
+
+Without it, you lose the real client IP if there’s another proxy before Nginx.
+
+4️.  X-Forwarded-Proto (proxy_set_header X-Forwarded-Proto $scheme;)
+
+Required? Recommended if your app needs to know whether the request was HTTP or HTTPS.
+
+Useful for generating proper redirects or absolute URLs in Flask.
