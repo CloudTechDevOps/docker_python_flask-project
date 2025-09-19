@@ -13,6 +13,13 @@ Start your Flask application with nohup:
 nohup python3 app.py > flask.log 2>&1 &
 
 
+#Survive logout (nohup),
+
+#Run in background (&),
+
+#Save logs (> flask.log 2>&1).
+
+
 ps aux | grep app.py   # to check running or not python background
 
 
