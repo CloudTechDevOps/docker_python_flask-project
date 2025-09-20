@@ -29,6 +29,7 @@ nohup python3 app.py > flask.log 2>&1 &
 
 ps aux | grep app.py   # to check running or not python background
 
+kill 9 <process id>
 
 pkill -f app.py    # to kill process 
 
