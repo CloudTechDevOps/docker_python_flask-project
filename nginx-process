@@ -99,7 +99,7 @@ You can add:
 
 # Upstream for app1
 upstream app1_backend {
-    server 10.0.1.101:5000;
+    server 10.0.1.101:3000;
 }
 
 # Upstream for app2
