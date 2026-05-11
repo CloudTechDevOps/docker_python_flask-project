@@ -1,3 +1,11 @@
+vi /etc/nginx/conf.d/default.conf
+
+OR
+
+vi /etc/nginx/nginx.conf
+add belwo config into this path
+
+
 server {
     listen 80;
     server_name 98.81.160.29;
