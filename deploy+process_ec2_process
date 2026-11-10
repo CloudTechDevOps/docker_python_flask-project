@@ -43,5 +43,18 @@ nohup prevents the process from stopping when you log out.
 > flask.log 2>&1 redirects output (stdout & stderr) to flask.log.
 
 
+######################## PM2 Process #################################
+
+sudo dnf install -y nodejs
+npm install -g pm2
+pm2 start python3 --name myapp -- app.py
+
+pm2 status
+pm2 logs myapp
+pm2 restart myapp
+pm2 stop myapp
+pm2 delete myapp
+
+
 
 
