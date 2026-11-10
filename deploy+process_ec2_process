@@ -56,5 +56,51 @@ pm2 stop myapp
 pm2 delete myapp
 
 
+######################### SystemD ######################################
+1. vi /root/docker_python_flask-project
+
+2.
+[Unit]
+Description=My Flask Application
+After=network.target
+
+[Service]
+Type=simple
+
+# Run application as root
+User=root
+Group=root
+
+# Application directory
+WorkingDirectory=/root/docker_python_flask-project
+
+# Start Flask application
+ExecStart=/usr/bin/python3 /root/docker_python_flask-project/app.py
+
+# Environment variables
+Environment="PORT=5000"
+Environment="PYTHONUNBUFFERED=1"
+
+# Restart configuration
+Restart=always
+RestartSec=5
+
+# Log configuration
+StandardOutput=append:/var/logs/myapp/systemd.log
+StandardError=append:/var/logs/myapp/error.log
+
+[Install]
+WantedBy=multi-user.target
 
 
+3.
+sudo mkdir -p /var/logs/myapp
+
+4. 
+sudo systemctl daemon-reload
+sudo systemctl enable myapp
+sudo systemctl restart myapp
+sudo systemctl status myapp
+
+########################### gunicorn ###############################
+             try
