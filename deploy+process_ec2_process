@@ -102,5 +102,13 @@ sudo systemctl enable myapp
 sudo systemctl restart myapp
 sudo systemctl status myapp
 
+====== Virtual env ======
+
+python3 -m venv <envname>
+python3 -m venv myvenv
+source myvenv/bin/activate # to activate 
+### we can create separe env for app so we can avoid version conflicts ##
+
+
 ########################### gunicorn ###############################
              try
